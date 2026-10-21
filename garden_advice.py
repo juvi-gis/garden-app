@@ -1,31 +1,36 @@
-# Hardcoded values for the season and plant type
-season = "summer"  # TODO: Replace with input() to allow user interaction.
-plant_type = "flower"  # TODO: Replace with input() to allow user interaction.
+"""Gardening advice based on the season and plant type."""
 
-# Variable to hold gardening advice
-advice = ""
 
-# Determine advice based on the season
-if season == "summer":
-    advice += "Water your plants regularly and provide some shade.\n"
-elif season == "winter":
-    advice += "Protect your plants from frost with covers.\n"
-else:
-    advice += "No advice for this season.\n"
+def get_season_advice(season: str) -> str:
+    """Return advice for the given season."""
+    if season == "summer":
+        return "Water your plants regularly and provide some shade."
+    if season == "winter":
+        return "Protect your plants from frost with covers."
+    return "No advice for this season."
 
-# Determine advice based on the plant type
-if plant_type == "flower":
-    advice += "Use fertiliser to encourage blooms."
-elif plant_type == "vegetable":
-    advice += "Keep an eye out for pests!"
-else:
-    advice += "No advice for this type of plant."
 
-# Print the generated advice
-print(advice)
+def get_plant_advice(plant_type: str) -> str:
+    """Return advice for the given plant type."""
+    if plant_type == "flower":
+        return "Use fertiliser to encourage blooms."
+    if plant_type == "vegetable":
+        return "Keep an eye out for pests!"
+    return "No advice for this type of plant."
 
-# TODO: Examples of possible features to add:
-# - Add detailed comments explaining each block of code.
-# - Refactor the code into functions for better readability and modularity.
-# - Store advice in a dictionary for multiple plants and seasons.
-# - Recommend plants based on the entered season.
+
+def get_advice(season: str, plant_type: str) -> str:
+    """Combine season and plant advice into one message."""
+    return f"{get_season_advice(season)}\n{get_plant_advice(plant_type)}"
+
+
+def main() -> None:
+    """Ask the user for a season and plant type, then print advice."""
+    # Normalising here so "Summer " and "summer" behave the same
+    season = input("Enter the season: ").strip().lower()
+    plant_type = input("Enter the plant type: ").strip().lower()
+    print(get_advice(season, plant_type))
+
+
+if __name__ == "__main__":
+    main()
