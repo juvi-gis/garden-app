@@ -1,5 +1,12 @@
 """Gardening advice based on the season and plant type."""
 
+SEASONAL_PLANTS: dict[str, list[str]] = {
+    "spring": ["tulips", "peas", "lettuce"],
+    "summer": ["sunflowers", "tomatoes", "basil"],
+    "autumn": ["pansies", "garlic", "kale"],
+    "winter": ["hellebores", "winter cabbage", "holly"],
+}
+
 
 def get_season_advice(season: str) -> str:
     """Return advice for the given season."""
@@ -19,14 +26,27 @@ def get_plant_advice(plant_type: str) -> str:
     return "No advice for this type of plant."
 
 
+def get_plant_recommendations(season: str) -> str:
+    """Return a sentence recommending plants for the given season."""
+    plants = SEASONAL_PLANTS.get(season)
+    if plants is None:
+        return "No plant recommendations for this season."
+    return f"Plants that thrive in {season}: {', '.join(plants)}."
+
+
 def get_advice(season: str, plant_type: str) -> str:
-    """Combine season and plant advice into one message."""
-    return f"{get_season_advice(season)}\n{get_plant_advice(plant_type)}"
+    """Combine season advice, plant advice and recommendations."""
+    return "\n".join(
+        [
+            get_season_advice(season),
+            get_plant_advice(plant_type),
+            get_plant_recommendations(season),
+        ]
+    )
 
 
 def main() -> None:
     """Ask the user for a season and plant type, then print advice."""
-    # Normalising here so "Summer " and "summer" behave the same
     season = input("Enter the season: ").strip().lower()
     plant_type = input("Enter the plant type: ").strip().lower()
     print(get_advice(season, plant_type))
